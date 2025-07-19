@@ -553,6 +553,11 @@ export function WalletProvider({ children }: WalletProviderProps) {
       throw new Error('Wallet not connected');
     }
 
+    // Check if trying to send to self
+    if (wallet.address && to === wallet.address) {
+      throw new Error('Cannot send to yourself');
+    }
+
     setIsProcessingTransaction(true);
 
     // Save pending transaction info
